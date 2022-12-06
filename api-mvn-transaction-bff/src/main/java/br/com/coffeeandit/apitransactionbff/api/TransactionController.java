@@ -1,8 +1,5 @@
 package br.com.coffeeandit.apitransactionbff.api;
 
-import java.util.Optional;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
-import br.com.coffeeandit.apitransactionbff.domain.TransactionService;
 import br.com.coffeeandit.apitransactionbff.dto.RequestTransactionDTO;
 import br.com.coffeeandit.apitransactionbff.dto.TransactionDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,12 +25,6 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/transaction")
 public class TransactionController {
 	
-	private TransactionService transactionService;
-	
-	public TransactionController(TransactionService transactionService) {
-		this.transactionService = transactionService;
-	}
-
 	@Operation(description = "API para criar uma transação financeira")
 	@ResponseBody
 	@ApiResponses(value = {@ApiResponse(responseCode="201", description = "Retorno OK com a transação criada."),
@@ -45,12 +34,7 @@ public class TransactionController {
 	})
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Mono<TransactionDTO> enviarTransacao(@RequestBody final RequestTransactionDTO requestTransactionDto) {
-		final Optional<TransactionDTO> transactionDTO = transactionService.save(requestTransactionDto);
-		
-		if (transactionDTO.isPresent()) {
-			return Mono.just(transactionDTO.get());
-		}
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao salvar");
+		return Mono.empty();
 	}
 	
 	@Operation(description = "API para buscar as transações persistidas por agência e conta")
@@ -63,11 +47,7 @@ public class TransactionController {
 	@Parameters(value = {@Parameter(name = "id", in = ParameterIn.PATH)})
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Mono<TransactionDTO> buscarTransacao(@PathVariable("id") final String uuid){
-		final Optional<TransactionDTO> transactionDTO = transactionService.findById(uuid);
-		if (transactionDTO.isPresent()) {
-			return Mono.just(transactionDTO.get());
-		}
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao salvar");
+		return Mono.empty();
 	}
 	
 	@Operation(description = "API para remover as transações persistidas")

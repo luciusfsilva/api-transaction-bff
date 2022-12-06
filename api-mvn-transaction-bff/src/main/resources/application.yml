@@ -1,0 +1,12 @@
+server:
+  port: 9199
+  
+springdoc:
+  swagger-ui:
+    path: /swagger-doc/swagger-ui.html
+    disable-swagger-default-url: true
+  api-docs:
+    path: /swagger-doc/v3/api-docs
+    groups:
+      enabled: true
+

@@ -7,8 +7,6 @@ import java.util.UUID;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -21,11 +19,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "uuid")
-@RedisHash(value = "TransactionDTO", timeToLive = 300)
 public class TransactionDTO {
 	
 	@Schema(description = "Código de identificação da transação")
-	@Id
 	private UUID uuid;
 	
 	@Schema(description = "Valor da transação")
