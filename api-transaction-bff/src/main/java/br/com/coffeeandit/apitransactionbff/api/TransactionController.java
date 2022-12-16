@@ -61,7 +61,7 @@ public class TransactionController {
 			@ApiResponse(responseCode="404", description = "Recurso não encontrado.")
 	})
 	@Parameters(value = {@Parameter(name = "id", in = ParameterIn.PATH)})
-	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Mono<TransactionDTO> buscarTransacao(@PathVariable("id") final String uuid){
 		final Optional<TransactionDTO> transactionDTO = transactionService.findById(uuid);
 		if (transactionDTO.isPresent()) {

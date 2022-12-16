@@ -1,10 +1,10 @@
-package br.com.coffeeandit.apimvntransactionbff;
+package br.com.coffeeandit.apilimitesvc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiMvnTransactionBffApplicationTests {
+class ApiLimiteSvcApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -43,6 +43,7 @@ public class TransactionDTO {
 	private Conta conta;
 	
 	@Schema(description = "Beneficiário da transação")
+	@NotNull(message = "Informar o beneficiário de origem da transação")
 	@Valid
 	private BeneficiarioDTO beneficiario;
 	

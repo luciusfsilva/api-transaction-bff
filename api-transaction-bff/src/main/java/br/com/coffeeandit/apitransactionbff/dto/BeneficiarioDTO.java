@@ -5,14 +5,20 @@ import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
 public class BeneficiarioDTO implements Serializable{
 
 	private static final long serialVersionUID = -2340124217524964306L;
 	
 	@Schema(description = "CPF do Beneficiário")
 	@NotNull(message = "Informar o CPF.")
-	private Long CPF;
+	private Long cpf;
 	
 	@Schema(description = "Código do banco de destino")
 	@NotNull(message = "Informar o código do banco de destino.")

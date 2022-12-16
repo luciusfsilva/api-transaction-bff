@@ -12,4 +12,4 @@ springdoc:
 spring:
   redis:
     port: 6379
-    host: locahost
+    host: localhost
