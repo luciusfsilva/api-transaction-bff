@@ -1,0 +1,14 @@
+server:
+  port: 8399
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: admin
+      password: admin
+      #Pode ser usado abaixo também para autenticar no mongodb
+      #uri: mongodb://admin:admin@localhost:27017
+      database: transaction
+      

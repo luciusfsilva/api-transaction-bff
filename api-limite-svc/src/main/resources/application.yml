@@ -1,2 +1,20 @@
 server:
   port: 8299
+  
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/limites
+    hikari:
+      username: limite
+      password: limite_passed
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
