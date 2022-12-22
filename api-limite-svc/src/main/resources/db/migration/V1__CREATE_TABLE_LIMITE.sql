@@ -1,8 +1,8 @@
 CREATE TABLE limite_diario (
-	id SERIAL NOT NULL,
+	id BIGINT NOT NULL AUTO_INCREMENT,
     agencia INT NOT NULL,
     conta INT NOT NULL,
-    data DATE NOT NULL,
+    limitedata DATETIME NOT NULL,
     valor DECIMAL(8,2),
     PRIMARY KEY (id)
 );

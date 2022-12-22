@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.coffeeandit.apitransactionbff.dto.RequestTransactionDTO;
 import br.com.coffeeandit.apitransactionbff.dto.TransactionDTO;
+import br.com.coffeeandit.apitransactionbff.exception.UnauthorizedException;
 import br.com.coffeeandit.apitransactionbff.redis.TransactionRedisRepository;
 
 @Service
@@ -26,6 +27,9 @@ public class TransactionService {
 	}
 	
 	public Optional<TransactionDTO> findById(String id) {
+		if (id.equals("2")) {
+			throw new UnauthorizedException("Esta é uma aula de controle de exceções");
+		}
 		return transactionRedisRepository.findById(id);
 	}
 	

@@ -1,1 +1,1 @@
-INSERT INTO limite_diario (agencia, conta, data, valor) VALUES (223, 88220, now(), 2000);
+INSERT INTO limite_diario (agencia, conta, limitedata, valor) VALUES (223, 88220, now(), 2000);

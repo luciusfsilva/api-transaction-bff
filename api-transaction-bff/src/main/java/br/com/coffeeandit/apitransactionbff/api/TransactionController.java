@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import br.com.coffeeandit.apitransactionbff.domain.TransactionService;
 import br.com.coffeeandit.apitransactionbff.dto.RequestTransactionDTO;
 import br.com.coffeeandit.apitransactionbff.dto.TransactionDTO;
+import br.com.coffeeandit.apitransactionbff.exception.NotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -67,7 +68,7 @@ public class TransactionController {
 		if (transactionDTO.isPresent()) {
 			return Mono.just(transactionDTO.get());
 		}
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao salvar");
+		throw new NotFoundException("Unable to find resource");
 	}
 	
 	@Operation(description = "API para remover as transações persistidas")

@@ -1,20 +1,39 @@
 server:
   port: 8299
-  
+
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/limites
-    hikari:
-      username: limite
-      password: limite_passed
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3399/limites?useTimezone=true&serverTimezone=UTC
+    username: limite
+    password: limite_passwd
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL94Dialect
-        temp:
-          use_jdbc_metadata_defaults: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
-    generate-ddl: true
+    properties:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+  flyway:
+    url: jdbc:mysql://localhost:3399/limites?useTimezone=true&serverTimezone=UTC
+    user: limite
+    password: limite_passwd
+  
+#spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/limite
+#    username: limite
+#    password: limite_passwd
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+#        temp:
+#          use_jdbc_metadata_defaults: false
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    generate-ddl: true
+
+limite:
+  valor: 2000
