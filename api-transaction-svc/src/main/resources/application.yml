@@ -2,6 +2,16 @@ server:
   port: 8399
 
 spring:
+  application:
+    name: api-transaction-svc
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      group-id: ${spring.application.name}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      auto-offset-reset: latest
+      enable-auto-commit: true
   data:
     mongodb:
       host: localhost
@@ -11,4 +21,21 @@ spring:
       #Pode ser usado abaixo também para autenticar no mongodb
       #uri: mongodb://admin:admin@localhost:27017
       database: transaction
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, beans, info
+
+transaction:
+  validation:
+    enabled: true
+    banco: true
+    horario: true
+    
+events:
+  consumeTopic: transaction
+  returnTopic: transaction_extorno
+    
       

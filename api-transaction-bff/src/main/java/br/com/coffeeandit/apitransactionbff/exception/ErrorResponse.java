@@ -1,5 +1,7 @@
 package br.com.coffeeandit.apitransactionbff.exception;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,7 @@ public class ErrorResponse {
 	
 	private String message;
 	private String code;
+	private LocalDateTime data;
 	
 
 }

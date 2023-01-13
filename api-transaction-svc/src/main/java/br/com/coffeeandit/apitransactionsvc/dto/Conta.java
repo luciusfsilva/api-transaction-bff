@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotNull;
 
+import lombok.EqualsAndHashCode;
 //import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(of = {"codigoAgencia", "codigoConta"})
 public class Conta implements Serializable{
 
 	private static final long serialVersionUID = -4725839536373039612L;

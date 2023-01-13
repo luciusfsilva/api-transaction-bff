@@ -1,6 +1,7 @@
 package br.com.coffeeandit.apilimitesvc.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,5 +33,7 @@ public class LimiteDiario {
 	private Long conta;
 	
 	private BigDecimal valor;
+
+	private LocalDateTime data; 
 
 }

@@ -1,9 +1,11 @@
 package br.com.coffeeandit.apitransactionbff.api;
 
+import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import br.com.coffeeandit.apitransactionbff.domain.TransactionService;
 import br.com.coffeeandit.apitransactionbff.dto.RequestTransactionDTO;
@@ -23,8 +24,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -45,13 +47,10 @@ public class TransactionController {
 			@ApiResponse(responseCode="404", description = "Recurso não encontrado.")
 	})
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Mono<TransactionDTO> enviarTransacao(@RequestBody final RequestTransactionDTO requestTransactionDto) {
-		final Optional<TransactionDTO> transactionDTO = transactionService.save(requestTransactionDto);
+	public Mono<RequestTransactionDTO> enviarTransacao(@RequestBody final RequestTransactionDTO requestTransactionDto) {
+		return transactionService.save(requestTransactionDto);
 		
-		if (transactionDTO.isPresent()) {
-			return Mono.just(transactionDTO.get());
-		}
-		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao salvar");
+		//throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao salvar");
 	}
 	
 	@Operation(description = "API para buscar as transações persistidas por agência e conta")
@@ -96,5 +95,21 @@ public class TransactionController {
 	public Mono<TransactionDTO> confirmarTransacao(@PathVariable("id") final String uuid) {
 		return Mono.empty();
 	}
-
+	
+	@GetMapping("/{agencia}/{conta}")
+	public Flux<List<TransactionDTO>> buscarTransacoes(@PathVariable("agencia") final Long agencia, @PathVariable("conta") final Long conta) {
+		return transactionService.findByAgenciaAndContaFlux(agencia, conta);
+	}
+	
+	@GetMapping("/sse/{agencia}/{conta}")
+	public Flux<ServerSentEvent<List<TransactionDTO>>> buscarTransacoesSSE(@PathVariable("agencia") final Long agencia, @PathVariable("conta") final Long conta) {
+		
+		return Flux.interval(Duration.ofSeconds(2))
+			.map(sequence -> ServerSentEvent.<List<TransactionDTO>>builder()
+					.id(String.valueOf(sequence))
+					.event("transacoes")
+					.data(transactionService.findByAgenciaAndConta(agencia, conta))
+					.retry(Duration.ofSeconds(1))
+					.build());
+	}
 }

@@ -10,9 +10,26 @@ springdoc:
     groups:
       enabled: true
 spring:
+  kafka:
+    producer:
+      client-id: ${spring.application.name}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      transaction-id-prefix: ${spring.application.name}
+    bootstrap-servers: localhost:9092
+    
+  application:
+    name: api-transaction-bff
+
   redis:
     port: 6379
     host: localhost
+    timeout: 5000
+app:
+  topic: transaction
 
 limites:
   url: http://localhost:8299/limite-diario
+  
+transaction:
+  url: http://localhost:8399/transaction

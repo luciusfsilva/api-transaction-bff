@@ -53,5 +53,9 @@ public class TransactionDTO {
 	
 	@Schema(description = "Situação da transação")
 	private SituacaoEnum situacao;
+	
+//	public void naoAnalisada() {
+//		situacao = SituacaoEnum.NAO_ANALISADA;
+//	}
 
 }
